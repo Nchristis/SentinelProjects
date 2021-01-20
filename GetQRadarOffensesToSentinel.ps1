@@ -23,7 +23,12 @@ $headers.add("Version","12.0")
 $headers.add("Content-Type","application/JSON")
 $Headers.add("SEC",$token)
 
-$url = "https://" + $consoleIP + "/api/siem/offenses"
+#Get all offenses for last 24hours epoch
+$startEopch = Get-Date -Date "01/01/1970"
+$yesterday = (Get-Date).AddDays(-1)
+$unixTime = [math]::Round((New-TimeSpan -Start $startEopch -End $yesterday).TotalMilliSeconds)
+
+$url = "https://" + $consoleIP + "/api/siem/offenses?filter=start_time%3E" + $unixTime
 $OffenseInfo = Invoke-RestMethod -Method GET -Headers $headers -Uri $url
 
 
