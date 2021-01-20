@@ -1,4 +1,14 @@
-﻿Write-Host "Setting Trust for certificate"
+﻿Write-Host "First we need some inputs"
+$consoleIP = Read-Host -Prompt 'Give the management / console ip for QRadar'
+$token = Read-Host -Prompt 'Input your authentication token for QRadar'
+$CustomerId = Read-Host -Prompt 'Provide the workspace ID for your Azure Sentinel solution'  
+$SharedKey = Read-Host -Prompt 'Provide the primary key to this Log Analytics workspace'  
+
+# Specify the name of the record type that you'll be creating
+$LogType = "QRadarOffense"
+
+
+Write-Host "Setting Trust for certificate"
 
 if ("TrustAllCertsPolicy" -as [type]) {} else {
         Add-Type "using System.Net;using System.Security.Cryptography.X509Certificates;public class TrustAllCertsPolicy : ICertificatePolicy {public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem) {return true;}}"
@@ -7,10 +17,6 @@ if ("TrustAllCertsPolicy" -as [type]) {} else {
 
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-#We can also ask this as input
-$token = "c5ba3b53-d515-4913-bfb1-018646a52126"
-$consoleIP = "13.82.219.84"
 
 $headers = @{}
 $headers.add("Version","12.0")
@@ -51,16 +57,6 @@ $sentinelJsonString = $sentinelJsonString.Substring(0, $sentinelJsonString.Lengt
 
 
 Write-Host "Json string created"
-
-# Replace with your Workspace ID
-$CustomerId = "254002c9-b15c-44f6-85b1-37ba46b8e37b"  
-
-# Replace with your Primary Key
-#$key=Get-AzureRmOperationalInsightsWorkspaceSharedKeys -ResourceGroupName  "cxe-naomi-rg" -Name "CxE-Naomi-Workspace"
-$SharedKey = "LItkJr3h6nvEHfajmN2KuWRcBezRHLGEcgfjtS5PVCZOCZfNBS6A9i/uLvCs8WeWAy7hasbewpbf4Gn1wnloQg=="
-
-# Specify the name of the record type that you'll be creating
-$LogType = "QRadarOffense"
 
 # You can use an optional field to specify the timestamp from the data. If the time field is not specified, Azure Monitor assumes the time is the message ingestion time
 $TimeStampField = ""
