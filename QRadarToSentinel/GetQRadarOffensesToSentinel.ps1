@@ -1,8 +1,8 @@
 ﻿Write-Host "First we need some inputs"
-$consoleIP = Read-Host -Prompt 'Give the management / console ip for QRadar'
-$token = Read-Host -Prompt 'Input your authentication token for QRadar'
-$CustomerId = Read-Host -Prompt 'Provide the workspace ID for your Azure Sentinel solution'  
-$SharedKey = Read-Host -Prompt 'Provide the primary key to this Log Analytics workspace'  
+$consoleIP = $env:consoleIP
+$token = $env:token
+$customerId = $env:customerID 
+$sharedKey =$env:sharedKey 
 
 # Specify the name of the record type that you'll be creating
 $LogType = "QRadarOffense"
