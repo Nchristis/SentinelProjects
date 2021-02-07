@@ -1,12 +1,13 @@
 ﻿Write-Host "First we need some inputs"
+# QRADAR info (management ip and authorization token)
 $consoleIP = $env:consoleIP
 $token = $env:token
+# Sentinel info (workspace id and workspace key)
 $customerId = $env:customerID 
 $sharedKey =$env:sharedKey 
 
 # Specify the name of the record type that you'll be creating
 $LogType = "QRadarOffense"
-
 
 Write-Host "Setting Trust for certificate"
 
