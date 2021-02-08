@@ -54,7 +54,7 @@
         }
     },
     "variables": {
-        "repoUrl": "https://github.com/Nchristis/SentinelProjects-Scripts.git",
+        "repoUrl": "https://github.com/Nchristis/QRadarToSentinel.git",		
         "branch": "main",
         "functionAppName": "[parameters('appName')]",
         "hostingPlanName": "[parameters('appName')]",
